@@ -57,13 +57,14 @@ def upload_file():
 	r, c = data.shape
 	print('Value of r', r)
 	data = data.reshape(600, 800, 3)
+	to_frontend = np.array2string(data)
 	db = data.tobytes()
 	print('type of data to database :', type(db))
 	todb = insertBLOB('Image007', db)
 	print('final data shape fed to model : ', data.shape)
 	cv2.imshow('image', data)
 	cv2.waitKey()
-	return jsonify({'text': 'result'})
+	return jsonify(to_frontend, r)
 
 if __name__ == "__main__":
     app.run(debug=True)
